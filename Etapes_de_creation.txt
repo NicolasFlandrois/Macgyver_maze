@@ -8,10 +8,11 @@ Etapes
     > Ok, Fait
 
     b)Commencez par créer le labyrinthe sans l’interface graphique. Quand la logique de votre labyrinthe est faite, utilisez le module PyGame pour dessiner l’interface graphique.
-        i. Importer un fichier graphique dans Python3 > Comment?
-        ii. Définir un damier de 15x15 cases, remplit avec le fichier graphique, de tuiles. > Comment?
+        i. Importer un fichier graphique (maze map) dans Python3 > Comment?
+        ii. Comment montrer ce graphique à l'écran, depuis Python?
+        iii. Définir un damier de 15x15 cases, remplit avec le fichier graphique, de tuiles. > Comment?
         La fenêtre du jeu sera un carré pouvant afficher 15 sprites sur la longueur.
-        iii. Il n'y a qu'un seul niveau. La structure (départ, emplacement des murs, arrivée), devra être enregistrée dans un fichier pour la modifier facilement au besoin.
+        iv. Il n'y a qu'un seul niveau. La structure (départ, emplacement des murs, arrivée), devra être enregistrée dans un fichier pour la modifier facilement au besoin.
 
     c)Puis intéressez-vous aux trois éléments principaux du jeu : le gardien, MacGyver et les objets. Comment les représenter dans votre programme ? Où sont-ils placés au commencement du jeu ?  
         i. Les objets seront répartis aléatoirement dans le labyrinthe et changeront d’emplacement si l'utilisateur ferme le jeu et le relance.
