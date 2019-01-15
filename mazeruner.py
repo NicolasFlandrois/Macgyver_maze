@@ -1,6 +1,6 @@
 #! bin/ python3
 from math import sqrt as sqrt
-import re
+
 #name = input("What is your Name? ")
 #This variable will be used to timestamp and keep traces of various plays and duration to solve the maze. Like a Score records.
 #format of this data base : Timestamp, Name, Maze#, DurationDelta(Timestamp @ Finish - Timestamp @ start)
