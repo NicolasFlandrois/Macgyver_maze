@@ -6,9 +6,9 @@ from math import sqrt as sqrt
 import os
 
 #newmaze_name = "newmaze_" + input("mazenumber? ") #How can I Automate this?
-TARGET_DIR = './maze_gen/'
+TARGET_DIR = './maze_board/'
 n = sum(1 for f in os.listdir(TARGET_DIR) if os.path.isfile(os.path.join(TARGET_DIR, f)))
-new_name = "{}newmaze_{}.txt".format(TARGET_DIR,n+1)
+new_name = "{}maze_{}.txt".format(TARGET_DIR,n+1)
 
 with open(new_name, 'w') as newmaze:
 		

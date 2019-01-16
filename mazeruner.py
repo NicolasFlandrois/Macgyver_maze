@@ -9,7 +9,7 @@ name = input("What is your Name? ")
 #format of this data base : Timestamp, Name, Maze#, DurationDelta(Timestamp @ Finish - Timestamp @ start)
 
 maze = []
-with open("maze1.txt") as f:
+with open("maze_board/maze_1.txt") as f:
 	maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
 	print(maze)
 
