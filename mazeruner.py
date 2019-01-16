@@ -1,7 +1,10 @@
-#! bin/ python3
+#! usr/bin/python3
+#Wed 16 Jan 2019 12:49:54 PM CET 
+#Author: Nicolas Flandrois
+
 from math import sqrt as sqrt
 
-#name = input("What is your Name? ")
+name = input("What is your Name? ")
 #This variable will be used to timestamp and keep traces of various plays and duration to solve the maze. Like a Score records.
 #format of this data base : Timestamp, Name, Maze#, DurationDelta(Timestamp @ Finish - Timestamp @ start)
 
@@ -10,63 +13,73 @@ with open("maze1.txt") as f:
 	maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
 	print(maze)
 
-row_len = sqrt(len(maze))+1
+row_len = int(sqrt(len(maze)))
 print("row length: ", row_len) #test run command fro row length. Checked OK, it works.
 
-def maze_view(maze):
-#retranscrire la liste sous forme de tableau type maze1.txt
-#changer la liste en string = Ok, Done
-	global row_len
-	maze_view = []
-	for pos in enumerate(maze):
-		if ((float(pos[0]) + row_len)%row_len) == 0:
-			maze.insert(int(pos[0]), '\n')
-	maze_view = " ".join([str(i) for i in maze])
-	print(maze_view)
+def lstsqr_view(mylist:list, length:int):
+	"""
+	lstsqr_view stands for "List Square view", and intend to make a list 
+	visually more readable. This function will display a list, 
+	into a format shape. Each iteration of the list is separated by a space.
+	Slices of the list are displaid according to a given length, in each line.
+	
+	Variables:
+		mylist = list we want to visualise, type: list.
+		length = length of a row, type: integer.
+	"""
+	list_view = []
+	for pos in enumerate(mylist):
+		if ((float(pos[0]) + length+1)%(length+1)) == 0:
+			mylist.insert(int(pos[0]), '\n')
+	list_view = " ".join([str(i) for i in mylist])
+	print(list_view)
+	for n in mylist:
+		try:
+			mylist.remove("\n")
+		except ValueError:
+			pass
 
-maze_view(maze)
+while True:
 
-#While True:
-	#Current position of 2 (MacGyver/Player)
-pos = maze.index(2)
-print("player position, in cell: ", pos) # Test command
+	lstsqr_view(maze, row_len)
 
-move = input("""What is your next move?
-	please press:
-	u = Up
-	d = Down
-	l = Left
-	r = right
+	pos = maze.index(2)
+	print("player position, in cell: ", pos) # Test command
+	print("Position coordinates: (", 
+		int(pos%row_len), ",", 
+		int(pos//row_len), ")")
+
+	move = input("""
+What is your next move?
+	u = Up			l = Left
+	d = Down		r = right
+
 	q = quit
-	""")
-if move==r:
-	int(pos) += 1 #r = right (position +1)
-elif move==l:
-	int(pos) -= 1 #l = left (position -1)
-elif move==u:
-	int(pos) += row_len #u = up (position +1 row)
-elif move==d:
-	int(pos) -= row_len #d = down (position (1 row)
-elif move==q:
-	break #q = quit the while infinit loop
+""").strip().lower()
+	npos = pos
+	if move in ("r", "right") :
+		npos = int(pos) + 1 #r = right (position +1)
+	elif move in ("l", "left") :
+		npos = int(pos) - 1 #l = left (position -1)
+	elif move in ("u", "up") :
+		npos = int(pos) - row_len #u = up (position +1 row)
+	elif move in ("d", "down") :
+		npos = int(pos) + row_len #d = down (position -1 row)
+	elif move in ("q", "quit", "exit") :
+		break #q = quit the while infinit loop
+	else:
+		continue
 	
-	
-	
-	
-	
-	#All other keys = message d'erreur + rappel des keys (make key input standard, Upper case or lower case doesn't matter)
-	#Attention ne pas depasser le 0 (en x ou y), lorsqu'il est sur les bordures du damier/maze, le joueur ne peux pas en sortir.
-	#If 1 or X in new position = NO! Blocking player. No messages, player kept in place, ask for more instructions.
-	#If 0, Then write 2 in new position, and replace old position by 0.
+	print("player New position, in cell: ", npos) #New position of 2 (MacGyver/Player) test command
 
-	#A chaques mouvements, ceci cree une nouvelle liste, qui remplace maze[]
-	#A chaques mouvements, print maze en carre avec la fonction maze_map
-	#5 fonctions
-		# def mouvement()
-		# def maze_map(): readable display
-		# 
-		#
-		#
+	if maze[npos] not in (1, 8):
+		maze[npos] = 2
+		maze[pos] = 0
+	else:
+		continue
+
+	print("maze list: ", maze) #reading test if \n remains
+
 	#Respecter docstrings & PEP 8 (Max 80 caracteres pas lignes)
 	
 	#Display Scores, and time delta, who is the winner on this maze? Who won in shortest time?
@@ -79,7 +92,5 @@ elif move==q:
 	#3 = Guardian
 	#4 = Composents (ojets a trouver)
 
-	#Question: comment creer une fonction editeur de maze, ne donnant qu'une string de zero?
-	#Et la generation de maze, peut-il etre autonome et automatise par python?
-	#Comment lancer de la musique en meme temps que l'on joue? Utiliser la musique du generique de la serie, des annees 1980, en 8bits.
+	#Question: Comment lancer de la musique en meme temps que l'on joue? Utiliser la musique du generique de la serie, des annees 1980, en 8bits.
 	
