@@ -104,11 +104,11 @@ What is your next move?
 	else:
 		move(maze, direction)
 
-	#Respecter docstrings & PEP 8 (Max 80 caracteres pas lignes)
+#Respecter docstrings & PEP 8 (Max 79 caracteres per lines)
 	
-	#Rappel:
-	#0 = Floor
-	#1 = Wall (cannot go there)
-	#2 = MacGyver (Player)
-	#3 = Guardian
-	#4 = Components (ojects to find)
+#Reminder:
+#0 = Floor
+#1 = Wall (cannot go there)
+#2 = MacGyver (Player)
+#3 = Guardian
+#4 = Components (ojects to find)
