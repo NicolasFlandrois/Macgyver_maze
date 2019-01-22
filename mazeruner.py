@@ -4,81 +4,88 @@
 
 from math import sqrt as sqrt
 
-name = input("What is your Name? ")
+#name = input("What is your Name? ")
 #This variable will be used to timestamp and keep traces of various plays and duration to solve the maze. Like a Score records.
 #format of this data base : Timestamp, Name, Maze#, DurationDelta(Timestamp @ Finish - Timestamp @ start)
 
 maze = []
 with open("maze_board/maze_1.txt") as f:
 	maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
-	print(maze)
 
 row_len = int(sqrt(len(maze)))
-print("row length: ", row_len) #test run command fro row length. Checked OK, it works.
 
-def lstsqr_view(mylist:list, length:int):
+def maze_view(mylist:list, length:int):
 	"""
 	lstsqr_view stands for "List Square view", and intend to make a list 
 	visually more readable. This function will display a list, 
-	into a format shape. Each iteration of the list is separated by a space.
-	Slices of the list are displaid according to a given length, in each line.
+	into a formated shape. Each iteration of the list is separated by a space.
+	Slices of the list are displayed according to a given length, in each line.
 	
 	Variables:
 		mylist = list we want to visualise, type: list.
 		length = length of a row, type: integer.
 	"""
-	list_view = []
-	for pos in enumerate(mylist):
-		if ((float(pos[0]) + length+1)%(length+1)) == 0:
-			mylist.insert(int(pos[0]), '\n')
-	list_view = " ".join([str(i) for i in mylist])
+	list_view = ""
+	for pos, tile in enumerate(mylist):
+		path = ""
+		if tile == 0 :
+			path = " "
+		elif tile == 1 :
+			path = "#"
+		elif tile == 2:
+			path = "M"
+		elif tile == 3:
+			path = "G"
+		else:
+			path = str(tile)
+		list_view+=path+" "
+		if (pos + length+1)%length == 0:
+			list_view+="\n"
 	print(list_view)
-	for n in mylist:
-		try:
-			mylist.remove("\n")
-		except ValueError:
-			pass
+
+
+def move(maze:list, direction:str):
+	"""This function will define the player's moves, 
+	and avoiding getting out of the maze's board, or colliding with walls"""
+	pos = maze.index(2)
+	if direction in ("l", "left"):
+		if pos%row_len == 0:
+			return
+		maze[pos-1] = 2
+	elif direction in ("r", "right"):
+		if (pos+1)%row_len == 0:
+			return
+		maze[pos+1] = 2
+	elif direction in ("u", "up"):
+		if pos-row_len < 0:
+			return
+		maze[pos-row_len] = 2
+	elif direction in ("d", "down"):
+		if pos+row_len >= len(maze):
+			return
+		maze[pos+row_len] = 2
+	else:
+		return
+	maze[pos] = 0
 
 while True:
 
-	lstsqr_view(maze, row_len)
+	maze_view(maze, row_len)
 
 	pos = maze.index(2)
-	print("player position, in cell: ", pos) # Test command
-	print("Position coordinates: (", 
-		int(pos%row_len), ",", 
-		int(pos//row_len), ")")
 
-	move = input("""
+	direction = input("""
 What is your next move?
 	u = Up			l = Left
-	d = Down		r = right
+	d = Down		r = Right
 
 	q = quit
 """).strip().lower()
-	npos = pos
-	if move in ("r", "right") :
-		npos = int(pos) + 1 #r = right (position +1)
-	elif move in ("l", "left") :
-		npos = int(pos) - 1 #l = left (position -1)
-	elif move in ("u", "up") :
-		npos = int(pos) - row_len #u = up (position +1 row)
-	elif move in ("d", "down") :
-		npos = int(pos) + row_len #d = down (position -1 row)
-	elif move in ("q", "quit", "exit") :
-		break #q = quit the while infinit loop
-	else:
-		continue
-	
-	print("player New position, in cell: ", npos) #New position of 2 (MacGyver/Player) test command
 
-	if maze[npos] not in (1, 8):
-		maze[npos] = 2
-		maze[pos] = 0
+	if direction in ("q", "quit", "exit") :
+		break
 	else:
-		continue
-
-	print("maze list: ", maze) #reading test if \n remains
+		move(maze, direction)
 
 	#Respecter docstrings & PEP 8 (Max 80 caracteres pas lignes)
 	
@@ -93,4 +100,3 @@ What is your next move?
 	#4 = Composents (ojets a trouver)
 
 	#Question: Comment lancer de la musique en meme temps que l'on joue? Utiliser la musique du generique de la serie, des annees 1980, en 8bits.
-	
