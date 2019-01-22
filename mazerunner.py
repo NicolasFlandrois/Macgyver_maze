@@ -43,7 +43,6 @@ def maze_view(mylist:list, length:int):
 			list_view+="\n"
 	print(list_view)
 
-
 def move(maze:list, direction:str):
 	"""This function will define the player's moves, 
 	and avoiding getting out of the maze's board, or colliding with walls"""
@@ -51,22 +50,44 @@ def move(maze:list, direction:str):
 	if direction in ("l", "left"):
 		if pos%row_len == 0:
 			return
+		elif maze[pos-1] == 1:
+			return
+		elif maze[pos-1] == 3:
+			run = "winner"
+			print("WINNER !")
 		maze[pos-1] = 2
 	elif direction in ("r", "right"):
 		if (pos+1)%row_len == 0:
 			return
+		elif maze[pos+1] == 1:
+			return
+		elif maze[pos+1] == 3:
+			run = "winner"
+			print("WINNER !")
 		maze[pos+1] = 2
 	elif direction in ("u", "up"):
 		if pos-row_len < 0:
 			return
+		elif maze[pos-row_len] == 1:
+			return
+		elif maze[pos-row_len] == 3:
+			run = "winner"
+			print("WINNER !")
 		maze[pos-row_len] = 2
 	elif direction in ("d", "down"):
 		if pos+row_len >= len(maze):
 			return
+		elif maze[pos+row_len] == 1:
+			return
+		elif maze[pos+row_len] == 3:
+			run = "winner"
+			print("WINNER !")
 		maze[pos+row_len] = 2
 	else:
 		return
 	maze[pos] = 0
+
+run = "play"
 
 while True:
 
