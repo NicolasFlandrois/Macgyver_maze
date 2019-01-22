@@ -4,10 +4,6 @@
 
 from math import sqrt as sqrt
 
-#name = input("What is your Name? ")
-#This variable will be used to timestamp and keep traces of various plays and duration to solve the maze. Like a Score records.
-#format of this data base : Timestamp, Name, Maze#, DurationDelta(Timestamp @ Finish - Timestamp @ start)
-
 maze = []
 with open("maze_board/maze_1.txt") as f:
 	maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
@@ -108,16 +104,11 @@ What is your next move?
 	else:
 		move(maze, direction)
 
-	#Respecter docstrings & PEP 8 (Max 80 caracteres pas lignes)
+#Respecter docstrings & PEP 8 (Max 79 caracteres per lines)
 	
-	#Display Scores, and time delta, who is the winner on this maze? Who won in shortest time?
-	#Then Back in While loop, start a new game/maze/start over this maze  >>> Player Choose if he wants to Quite, Restart, or Start a new Maze.
-	
-	#Rappel:
+#Reminder:
 	#0 = Floor
 	#1 = Wall (cannot go there)
 	#2 = MacGyver (Player)
 	#3 = Guardian
 	#4 = Composents (ojets a trouver)
-
-	#Question: Comment lancer de la musique en meme temps que l'on joue? Utiliser la musique du generique de la serie, des annees 1980, en 8bits.
