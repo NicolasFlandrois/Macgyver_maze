@@ -83,6 +83,7 @@ def main():
 	"""Main function for running this script in Pygame"""
 	pg.init()
 	
+	#Music background.
 	pg.mixer.music.set_volume(0.5)
 	pg.mixer.music.load("./media/MacGyver_Theme-8-Bit.ogg")
 	pg.mixer.music.play(100)
