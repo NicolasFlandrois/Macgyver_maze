@@ -46,20 +46,20 @@ def antidote(maze:list):
 			else:
 				continue
 
-def fstatus(maze:list, pos:int):
-	"""This function defines the player status, according to winning
-	or loosing conditions"""
-	count = 0
-	for n in maze:
-		if n in (range(4,7)):
-			count+=1
-		pass
-
-	if maze.count(3) == 0:
-		if count != 0:
-			print("YOU LOST ! TRY AGAIN!")
-		else:
-			print("WINNER !")
+#def fstatus(maze:list, pos:int, state:str):
+#	"""This function defines the player status, according to winning
+#	or loosing conditions"""
+#	count = 0
+#	for n in maze:
+#		if n in (range(4,7)):
+#			count+=1
+#		pass
+#
+#	if maze.count(3) == 0:
+#		if count != 0:
+#			state = "lose"
+#		else:
+#			state = "win"
 
 def move(maze:list, direction:str, row_len:int):
 	"""This function will define the player's moves, 
@@ -108,7 +108,7 @@ def main():
 	screen = pg.display.set_mode(((row_len*30), (row_len*30)))
 	textures = {i: pg.image.load("./media/{}.png".format(i)) for i in range(1,7)}
 	
-	status = True
+	state = "run"
 
 	while True:
 		screen.fill([0,0,0]) #Clear Screen (fill screen with black)
@@ -135,12 +135,22 @@ def main():
 					move(maze, "d", row_len)
 
 		pos = maze.index(2)
-		fstatus(maze, pos)
-		
+
+		count = 0
+		for n in maze:
+			if n in (range(4,7)):
+				count+=1
+			pass
+
 		if maze.count(3) != 0:
 			continue
 		else:
-			exit() #this doesn't work yet!
+			if count != 0:
+				state = "lose"
+			else:
+				state = "win"
+			print(state) #run/win/lose statement
+			exit()
 			break
 		
 if __name__ == '__main__':
