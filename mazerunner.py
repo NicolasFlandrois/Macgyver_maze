@@ -82,6 +82,11 @@ def move(maze:list, direction:str, row_len:int):
 def main():
 	"""Main function for running this script in Pygame"""
 	pg.init()
+	
+	pg.mixer.music.set_volume(0.5)
+	pg.mixer.music.load("./media/MacGyver_Theme-8-Bit.ogg")
+	pg.mixer.music.play(100)
+
 	maze = []
 	with open("maze_board/maze_1.txt") as f:
 		maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
