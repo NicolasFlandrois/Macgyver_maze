@@ -82,11 +82,11 @@ def move(maze:list, direction:str, row_len:int):
 def main():
 	"""Main function for running this script in Pygame"""
 	pg.init()
-	
+
 	#Music background.
 	pg.mixer.music.set_volume(0.5)
 	pg.mixer.music.load("./media/MacGyver_Theme-8-Bit.ogg")
-	pg.mixer.music.play(100)
+	pg.mixer.music.play(3)
 
 	maze = []
 	with open("maze_board/maze_1.txt") as f:
@@ -97,12 +97,13 @@ def main():
 
 	screen = pg.display.set_mode(((row_len*30), (row_len*30)))
 	textures = {i: pg.image.load("./media/{}.png".format(i)) for i in range(1,7)}
-	
+	white = (255,255,255)
+	black = (0,0,0)	
 	state = "run"
 
 	while True:
-		screen.fill([0,0,0]) #Clear Screen (fill screen with black)
-
+		screen.fill(black) #Clear Screen (fill screen with black)
+		
 		for pos, tile in enumerate(maze):
 			x = (pos%row_len)*30
 			y = (pos//row_len)*30
@@ -139,14 +140,30 @@ def main():
 				state = "lose"
 			else:
 				state = "win"
-			print(state) #run/win/lose statement
-			exit()
 			break
-		
+	pg.mixer.music.stop()
+
+	if state == "lose":
+		message = "You lost. Try Again!"
+		pg.mixer.Sound("./media/lost.ogg").play()
+	else:
+		message = "WINNER !"
+		pg.mixer.Sound("./media/win.ogg").play()
+
+	while True:
+		for event in pg.event.get():
+			if event.type == pg.KEYDOWN:
+				if event.key == pg.K_ESCAPE:
+					exit()
+		screen.fill(black) #Clear Screen (fill screen with black)
+		text = pg.font.SysFont("Arial", 40).render(message, True, white)
+		screen.blit(text, (screen.get_width()/2 - text.get_rect().width/2,
+			screen.get_height()/2 - text.get_rect().height/2))
+		pg.display.update()
+
 if __name__ == '__main__':
 	main()
 
-#Afficher a la fin du round (Gagner ou perdu), que le joueur a Gagner ou perdu >> Selon, faire apparaitre un texte dans Pygame, avec une Fonts
 
 #Respecter docstrings & PEP 8 (Max 79 caracteres per lines)
 	
