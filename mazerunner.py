@@ -58,7 +58,7 @@ def winlose(maze:list):
 
 def draw(maze:list, row_len:int):
 	"""Rendering all graphics"""
-	global state, count, remainct0, remainct1, remainct2, remainct3
+	global state, count, remainct0, remainct1, remainct2
 	global remaintxt, textwin, textlose
 
 	screen = (pg.display.set_mode(((row_len*30), 
@@ -134,9 +134,8 @@ remainct1 = (pg.font.Font("./media/arial.ttf", 30)
 	.render("Remaining components : 1", True, white))
 remainct2 = (pg.font.Font("./media/arial.ttf", 30)
 	.render("Remaining components : 2", True, white))
-remainct3 = (pg.font.Font("./media/arial.ttf", 30)
+remaintxt = (pg.font.Font("./media/arial.ttf", 30)
 	.render("Remaining components : 3", True, white))
-remaintxt = remainct3
 textlose = (pg.font.Font("./media/arial.ttf", 40)
 	.render("You lost. Try Again!", True, white))
 textwin = pg.font.Font("./media/arial.ttf", 40).render("WINNER !", True, white)
