@@ -1,4 +1,5 @@
 #!usr/bin/python3.6
+#UTF8
 #Wed 16 Jan 2019 12:49:54 PM CET 
 #Author: Nicolas Flandrois
 
@@ -7,7 +8,7 @@ import pygame as pg
 from sys import exit
 from random import randrange as randrange
 
-def randomized_components(maze:list):
+def randomize_components(maze:list):
 	"""Randomly assigning positions for antidote's components in maze. 
 	This function needs to import random module"""
 	for i in range(4,7): #For loop applied to components named (4, 5, 6)
@@ -18,6 +19,7 @@ def randomized_components(maze:list):
 				break
 			else:
 				continue
+
 
 def move(maze:list, direction:str, row_len:int):
 	"""This function will define the player's moves, 
@@ -38,23 +40,19 @@ def move(maze:list, direction:str, row_len:int):
 	maze[pos] = 0
 	winlose(maze)
 
+
 def winlose(maze:list):
 	"""This function will define a win/lose situation"""
 	#Count remaining components
 	global state, count
-	ct = 0 #temporary count
+	count = 0
 	for n in maze:
-		if n in (range(4,7)):
-			ct+=1
-	count = ct
+		if n in range(4, 7):
+			count+=1
 	#Check if there is a guardian, and define if win or lose
-	if maze.count(3) != 0:
-		pass
-	else:
-		if count != 0:
-			state = "lose"
-		else:
-			state = "win"
+	if maze.count(3) == 0:
+		state = "win" if count == 0 else "lose"
+
 
 def draw(maze:list, row_len:int):
 	"""Rendering all graphics"""
@@ -125,7 +123,7 @@ with open("./maze_board/maze_1.txt") as f:
 	maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
 
 row_len = int(sqrt(len(maze))) #Determine the length of a row from maze.
-randomized_components(maze) #Randmonly positions components
+randomize_components(maze) #Randmonly positions components
 #Text to render further on, Components' countdown , Win, Lose
 pg.font.init()
 remainct0 = (pg.font.Font("./media/arial.ttf", 20)
