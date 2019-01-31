@@ -69,9 +69,14 @@ def draw(maze:list, row_len:int):
 		y = (pos//row_len)*30
 		if tile != 0:
 			screen.blit(textures[tile], (x, y)) 
+	#Display of remaining componets to pick up
+	remaintxt = (pg.font.SysFont("Arial", 40)
+		.render("Remaining components : ", True, white))
+	screen.blit(remaintxt, (0, 0)
 	#Rendering win/lose text on screen, according to state status (run, win, lose)
 	if state == "lose":
-		text = pg.font.SysFont("Arial", 40).render("You lost. Try Again!", True, white)
+		text = (pg.font.SysFont("Arial", 40)
+			.render("You lost. Try Again!", True, white))
 		screen.blit(text, (screen.get_width()/2 - text.get_rect().width/2,
 			screen.get_height()/2 - text.get_rect().height/2))			
 	elif state == "win":
