@@ -59,10 +59,10 @@ def winlose(maze:list):
 def draw(maze:list, row_len:int):
 	"""Rendering all graphics"""
 	global state, count, remainct0, remainct1, remainct2, remainct3
-	global textwin, textlose
+	global remaintxt, textwin, textlose
 
 	screen = (pg.display.set_mode(((row_len*30), 
-	(row_len*30)+remainct0.get_rect().height))) #loading screen
+	(row_len*30)+remaintxt.get_rect().height))) #loading screen
 	
 	textures = {i: pg.image.load("./media/{}.png".format(i)) 
 	for i in range(1,7)} #loading textures
@@ -77,14 +77,12 @@ def draw(maze:list, row_len:int):
 			screen.blit(textures[tile], (x, y)) 
 	
 	#Rendering count of remaining components to pick up
-	if count == 1:
+	if count == 0:
+		remaintxt = remainct0
+	elif count == 1:
 		remaintxt = remainct1
 	elif count == 2:
 		remaintxt = remainct2
-	elif count == 3:
-		remaintxt = remainct3
-	else:
-		remaintxt = remainct0
 	screen.blit(remaintxt, (0, screen.get_height()- remaintxt.get_rect().height))
 	
 	#Rendering win/lose text on screen, according to state status (run, win, lose)
@@ -138,6 +136,7 @@ remainct2 = (pg.font.Font("./media/arial.ttf", 30)
 	.render("Remaining components : 2", True, white))
 remainct3 = (pg.font.Font("./media/arial.ttf", 30)
 	.render("Remaining components : 3", True, white))
+remaintxt = remainct3
 textlose = (pg.font.Font("./media/arial.ttf", 40)
 	.render("You lost. Try Again!", True, white))
 textwin = pg.font.Font("./media/arial.ttf", 40).render("WINNER !", True, white)
