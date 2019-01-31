@@ -128,13 +128,13 @@ row_len = int(sqrt(len(maze))) #Determine the length of a row from maze.
 randomized_components(maze) #Randmonly positions components
 #Text to render further on, Components' countdown , Win, Lose
 pg.font.init()
-remainct0 = (pg.font.Font("./media/arial.ttf", 30)
+remainct0 = (pg.font.Font("./media/arial.ttf", 20)
 	.render("Remaining components : 0", True, white))
-remainct1 = (pg.font.Font("./media/arial.ttf", 30)
+remainct1 = (pg.font.Font("./media/arial.ttf", 20)
 	.render("Remaining components : 1", True, white))
-remainct2 = (pg.font.Font("./media/arial.ttf", 30)
+remainct2 = (pg.font.Font("./media/arial.ttf", 20)
 	.render("Remaining components : 2", True, white))
-remaintxt = (pg.font.Font("./media/arial.ttf", 30)
+remaintxt = (pg.font.Font("./media/arial.ttf", 20)
 	.render("Remaining components : 3", True, white))
 textlose = (pg.font.Font("./media/arial.ttf", 40)
 	.render("You lost. Try Again!", True, white))
