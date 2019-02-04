@@ -16,4 +16,6 @@ count = 3
 
 #Game play
 if __name__ == '__main__':
-		main(Maze, get_row_length)
+		game = Game()
+		maze =Maze()
+		game.main(Maze, get_row_length)

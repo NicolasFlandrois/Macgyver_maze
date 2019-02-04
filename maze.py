@@ -1,11 +1,11 @@
 class Maze():
 
-	def __init__(self:list, path="./mazeboard/maze1.txt"):
+	def __init__(self:list, path="./maze_board/maze_1.txt"):
 		self.tiles = []
 		with open(path) as f:
 			self.tiles = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
-		get_row_length(self) #Determine the length of a row from maze.
-		get_randomize_components(self) #Randmonly positions randomize_components
+#		get_row_length(self) #Determine the length of a row from maze.
+#		get_randomize_components(self) #Randmonly positions randomize_components
 
 
 	def get_row_length(self:list):
@@ -64,3 +64,15 @@ class Maze():
 				screen.get_height()/2 - textwin.get_rect().height/2))
 
 		pg.display.update()
+
+
+#Test Lines
+from math import sqrt as sqrt
+import pygame as pg
+from sys import exit
+from random import randrange as randrange
+maze = Maze()
+print("test lines")
+print("Row len : ", maze.get_row_length())
+print(maze.get_randomize_components())
+print(draw())
