@@ -1,23 +1,27 @@
-class Game(Maze):
+class Game(self):
 	"""docstring for Game"""
-	def __init__(self, arg):
+	def __init__(self, Maze):
 		super(Maze, self).__init__()
-		#Text to render further on, Components' countdown , Win, Lose
+				
+
+	def render_text(self):
+		"""Text to render further on, Components' countdown , Win, Lose"""
 		pg.font.init()
-		remainct0 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 0", True, white))
-		remainct1 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 1", True, white))
-		remainct2 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 2", True, white))
-		remaintxt = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 3", True, white))
-		textlose = (pg.font.Font("./media/arial.ttf", 40)
-			.render("You lost. Try Again!", True, white))
-		textwin = pg.font.Font("./media/arial.ttf", 40).render("WINNER !", True, white)
+		remain0 = (pg.font.Font("./media/arial.ttf", 20)
+			.render("Remaining components : 0", True, Maze.colors.white()))
+		remain1 = (pg.font.Font("./media/arial.ttf", 20)
+			.render("Remaining components : 1", True, Maze.colors.white()))
+		remain2 = (pg.font.Font("./media/arial.ttf", 20)
+			.render("Remaining components : 2", True, Maze.colors.white()))
+		remain3 = (pg.font.Font("./media/arial.ttf", 20)
+			.render("Remaining components : 3", True, Maze.colors.white()))
+		txtlose = (pg.font.Font("./media/arial.ttf", 40)
+			.render("You lost. Try Again!", True, Maze.colors.white()))
+		txtwin = (pg.font.Font("./media/arial.ttf", 40)
+			.render("WINNER !", True, Maze.colors.white()))
 
 
-	def move(Maze:list, direction:str, get_row_length:int):
+	def move(self, Maze:list, direction:str, get_row_length:int):
 		"""This function will define the player's moves, 
 		and avoiding getting out of the Maze's board, or colliding with walls"""
 		pos = Maze.index(2) #Catch player's position
@@ -37,7 +41,7 @@ class Game(Maze):
 		winlose(Maze)
 
 
-	def winlose(Maze:list):
+	def winlose(self, Maze:list):
 		"""This function will define a win/lose situation"""
 		#Count remaining components
 		global state, count
@@ -50,7 +54,7 @@ class Game(Maze):
 			state = "win" if count == 0 else "lose"
 
 
-	def main(Maze:list, get_row_length:int):
+	def main(self, Maze:list, get_row_length:int):
 		"""Main function for running this script in Pygame"""
 		pg.init()
 

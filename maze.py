@@ -24,6 +24,11 @@ class Maze():
 					continue
 
 
+	def colors(self):
+		white = (255,255,255)
+		black = (0,0,0)
+
+
 	def draw(self:list, get_row_length:int):
 		"""Rendering all graphics"""
 		global state, count
@@ -36,7 +41,7 @@ class Maze():
 		textures = {i: pg.image.load("./media/{}.png".format(i)) 
 		for i in range(1,7)} #loading textures
 		
-		screen.fill(black) #Clear Screen (fill screen with black)	
+		screen.fill(self.colors.black()) #Clear Screen (fill screen with black)	
 		
 		#Determine tiles' positions in pygame coordinates.
 		for pos, tile in enumerate(self):
@@ -47,20 +52,22 @@ class Maze():
 		
 		#Rendering count of remaining components to pick up
 		if count == 0:
-			game.render_text.remaint() = game.render_text.remaint0()
+			remain_text = game.render_text.remain0()
 		elif count == 1:
-			game.render_text.remaint() = game.render_text.remaint1()
+			remain_text = game.render_text.remain1()
 		elif count == 2:
-			game.render_text.remaint() = game.render_text.remaint2()
-		screen.blit(game.render_text.remaint(), (0, screen.get_height()- game.render_text.remaint().get_rect().height))
+			remain_text = game.render_text.remain2()
+		else:
+			remain_text = game.render_text.remain3()
+		screen.blit(remain_text, (0, screen.get_height()- remain_text.get_rect().height))
 		
 		#Rendering win/lose text on screen, according to state status (run, win, lose)
 		if state == "lose":
-			screen.blit(game.render_text.tlose(), (screen.get_width()/2 - game.render_text.tlose().get_rect().width/2, 
-				screen.get_height()/2 - textlose.get_rect().height/2))			
+			screen.blit(game.render_text.txtlose(), (screen.get_width()/2 - game.render_text.txtlose().get_rect().width/2, 
+				screen.get_height()/2 - game.render_text.txtlose().get_rect().height/2))
 		elif state == "win":
-			screen.blit(game.render_text.twin(), (screen.get_width()/2 - game.render_text.twin().get_rect().width/2, 
-				screen.get_height()/2 - game.render_text.twin().get_rect().height/2))
+			screen.blit(game.render_text.txtwin(), (screen.get_width()/2 - game.render_text.txtwin().get_rect().width/2, 
+				screen.get_height()/2 - game.render_text.txtwin().get_rect().height/2))
 
 		pg.display.update()
 
