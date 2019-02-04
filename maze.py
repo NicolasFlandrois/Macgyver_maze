@@ -26,7 +26,8 @@ class Maze():
 
 	def draw(self:list, get_row_length:int):
 		"""Rendering all graphics"""
-		global state, count, #remainct0, remainct1, remainct2
+		global state, count
+		#remainct0, remainct1, remainct2
 		#global remaintxt, textwin, textlose
 
 		screen = (pg.display.set_mode(((self.get_row_length()*30), 
