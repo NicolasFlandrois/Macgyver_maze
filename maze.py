@@ -4,8 +4,6 @@ class Maze():
 		self.tiles = []
 		with open(path) as f:
 			self.tiles = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
-#		get_row_length(self) #Determine the length of a row from maze.
-#		get_randomize_components(self) #Randmonly positions randomize_components
 
 
 	def get_row_length(self:list):
@@ -28,11 +26,11 @@ class Maze():
 
 	def draw(self:list, get_row_length:int):
 		"""Rendering all graphics"""
-		global state, count, remainct0, remainct1, remainct2
-		global remaintxt, textwin, textlose
+		global state, count, #remainct0, remainct1, remainct2
+		#global remaintxt, textwin, textlose
 
-		screen = (pg.display.set_mode(((get_row_length*30), 
-		(get_row_length*30)+remaintxt.get_rect().height))) #loading screen
+		screen = (pg.display.set_mode(((self.get_row_length()*30), 
+		(self.get_row_length()*30)+game.render_text.remaintxt().get_rect().height))) #loading screen
 		
 		textures = {i: pg.image.load("./media/{}.png".format(i)) 
 		for i in range(1,7)} #loading textures
@@ -40,28 +38,28 @@ class Maze():
 		screen.fill(black) #Clear Screen (fill screen with black)	
 		
 		#Determine tiles' positions in pygame coordinates.
-		for pos, tile in enumerate(slef):
-			x = (pos%get_row_length)*30
-			y = (pos//get_row_length)*30
+		for pos, tile in enumerate(self):
+			x = (pos%self.get_row_length())*30
+			y = (pos//self.get_row_length())*30
 			if tile != 0:
 				screen.blit(textures[tile], (x, y)) 
 		
 		#Rendering count of remaining components to pick up
 		if count == 0:
-			remaintxt = remainct0
+			game.render_text.remaint() = game.render_text.remaint0()
 		elif count == 1:
-			remaintxt = remainct1
+			game.render_text.remaint() = game.render_text.remaint1()
 		elif count == 2:
-			remaintxt = remainct2
-		screen.blit(remaintxt, (0, screen.get_height()- remaintxt.get_rect().height))
+			game.render_text.remaint() = game.render_text.remaint2()
+		screen.blit(game.render_text.remaint(), (0, screen.get_height()- game.render_text.remaint().get_rect().height))
 		
 		#Rendering win/lose text on screen, according to state status (run, win, lose)
 		if state == "lose":
-			screen.blit(textlose, (screen.get_width()/2 - textlose.get_rect().width/2, 
+			screen.blit(game.render_text.tlose(), (screen.get_width()/2 - game.render_text.tlose().get_rect().width/2, 
 				screen.get_height()/2 - textlose.get_rect().height/2))			
 		elif state == "win":
-			screen.blit(textwin, (screen.get_width()/2 - textwin.get_rect().width/2, 
-				screen.get_height()/2 - textwin.get_rect().height/2))
+			screen.blit(game.render_text.twin(), (screen.get_width()/2 - game.render_text.twin().get_rect().width/2, 
+				screen.get_height()/2 - game.render_text.twin().get_rect().height/2))
 
 		pg.display.update()
 
@@ -71,7 +69,9 @@ from math import sqrt as sqrt
 import pygame as pg
 from sys import exit
 from random import randrange as randrange
+
 maze = Maze()
+game = Game()
 print("test lines")
 print("Row len : ", maze.get_row_length())
 print(maze.get_randomize_components())
