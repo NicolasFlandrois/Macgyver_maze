@@ -18,9 +18,9 @@ class Maze():
 		This function needs to import random module"""
 		for i in range(4,7): #For loop applied to components named (4, 5, 6)
 			while True:
-				rand_pos = randrange(len(slef)+1)
-				if self[rand_pos] == 0 :
-					self[rand_pos]= i
+				rand_pos = randrange(len(self.tiles)+1)
+				if self.tiles[rand_pos] == 0 :
+					self.tiles[rand_pos]= i
 					break
 				else:
 					continue
@@ -75,4 +75,4 @@ maze = Maze()
 print("test lines")
 print("Row len : ", maze.get_row_length())
 print(maze.get_randomize_components())
-print(draw())
+print(maze.draw(maze.get_row_length()))
