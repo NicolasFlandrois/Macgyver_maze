@@ -1,6 +1,6 @@
 #!usr/bin/python3.6
 #UTF8
-#date
+#Date: 
 #Author: Nicolas Flandrois
 
 from math import sqrt as sqrt
@@ -16,4 +16,4 @@ count = 3
 
 #Game play
 if __name__ == '__main__':
-		main(maze, row_len)
+		main(Maze, get_row_length)

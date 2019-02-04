@@ -4,6 +4,8 @@ class Maze():
 		self.tiles = []
 		with open(path) as f:
 			self.tiles = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
+		get_row_length(self) #Determine the length of a row from maze.
+		get_randomize_components(self) #Randmonly positions randomize_components
 
 
 	def get_row_length(self:list):
@@ -11,14 +13,14 @@ class Maze():
 		return int(sqrt(len(self.tiles))) #Determine the length of a row from maze.
 
 
-	def get_randomize_components(slef:list):
+	def get_randomize_components(self:list):
 		"""Randomly assigning positions for antidote's components in maze. 
 		This function needs to import random module"""
 		for i in range(4,7): #For loop applied to components named (4, 5, 6)
 			while True:
 				rand_pos = randrange(len(slef)+1)
-				if slef[rand_pos] == 0 :
-					slef[rand_pos]= i
+				if self[rand_pos] == 0 :
+					self[rand_pos]= i
 					break
 				else:
 					continue
