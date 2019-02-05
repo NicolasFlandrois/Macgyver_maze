@@ -6,7 +6,7 @@ class Game():
     def __init__(self):
         pg.init()
         self.WHITE = (255, 255, 255)
-        self.maze = Maze("./maze_board/maze_1.txt")
+        self.maze = Maze("./levels/001.txt")
         self.state = "run"
         self.font = pg.font.Font("./media/arial.ttf", 20)
         self.remain0 = self.font.render("Remaining components : 0", True, self.WHITE)
