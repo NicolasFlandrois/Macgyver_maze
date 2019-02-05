@@ -1,73 +1,69 @@
-class Game(self):
-	"""docstring for Game"""
-	def __init__(self, Maze):
-		super(Maze, self).__init__()
-				
+from maze import Maze
+import pygame as pg
 
-	def render_text(self):
-		"""Text to render further on, Components' countdown , Win, Lose"""
-		pg.font.init()
-		remain0 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 0", True, Maze.colors.white()))
-		remain1 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 1", True, Maze.colors.white()))
-		remain2 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 2", True, Maze.colors.white()))
-		remain3 = (pg.font.Font("./media/arial.ttf", 20)
-			.render("Remaining components : 3", True, Maze.colors.white()))
-		txtlose = (pg.font.Font("./media/arial.ttf", 40)
-			.render("You lost. Try Again!", True, Maze.colors.white()))
-		txtwin = (pg.font.Font("./media/arial.ttf", 40)
-			.render("WINNER !", True, Maze.colors.white()))
-
-
-	def move(self, Maze:list, direction:str, get_row_length:int):
-		"""This function will define the player's moves, 
-		and avoiding getting out of the Maze's board, or colliding with walls"""
-		pos = Maze.index(2) #Catch player's position
-		if direction == pg.K_LEFT and pos%get_row_length != 0 and Maze[pos-1] != 1:
-			Maze[pos-1] = 2
-		elif (direction == pg.K_RIGHT and (pos+1)%get_row_length != 0 
-			and Maze[pos+1] != 1):
-			Maze[pos+1] = 2
-		elif direction == pg.K_UP and pos-get_row_length > 0 and Maze[pos-get_row_length] != 1:
-			Maze[pos-get_row_length] = 2
-		elif (direction == pg.K_DOWN and pos+get_row_length < len(Maze) 
-			and Maze[pos+get_row_length] != 1):
-			Maze[pos+get_row_length] = 2
-		else:
-			return
-		Maze[pos] = 0
-		winlose(Maze)
+class Game():
+    """docstring for Game"""
+    def __init__(self):
+        pg.init()
+        self.WHITE = (255, 255, 255)
+        self.maze = Maze("./maze_board/maze_1.txt")
+        self.state = "run"
+        self.font = pg.font.Font("./media/arial.ttf", 20)
+        self.remain0 = self.font.render("Remaining components : 0", True, self.WHITE)
+        self.remain1 = self.font.render("Remaining components : 1", True, self.WHITE)
+        self.remain2 = self.font.render("Remaining components : 2", True, self.WHITE)
+        self.remain3 = self.font.render("Remaining components : 3", True, self.WHITE)
+        self.txtlose = self.font.render("You lost. Try Again!", True, self.WHITE)
+        self.txtwin = self.font.render("WINNER !", True, self.WHITE)
+        WIDTH = self.maze.row_len*30
+        HEIGHT = self.maze.row_len*30 + 30
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        self.TEXTURES = {i: pg.image.load("./media/{}.png".format(i)) \
+        for i in range(1,7)} #loading TEXTURES
 
 
-	def winlose(self, Maze:list):
-		"""This function will define a win/lose situation"""
-		#Count remaining components
-		global state, count
-		count = 0
-		for n in Maze:
-			if n in range(4, 7):
-				count+=1
-		#Check if there is a guardian, and define if win or lose
-		if Maze.count(3) == 0:
-			state = "win" if count == 0 else "lose"
+    def resolve(self):
+        """This function will define a win/lose situation"""
+        #Check if there is a guardian, and define if win or lose
+        if not self.maze.has_guardian():
+            self.state = "win" if self.maze.components_count == 0 else "lose"
 
 
-	def main(self, Maze:list, get_row_length:int):
-		"""Main function for running this script in Pygame"""
-		pg.init()
+    def draw(self):
+        self.screen.fill((0, 0, 0)) #Clear Screen (fill screen with black)
+        self.maze.draw(self.TEXTURES, self.screen)
+        remain_text = None
+        #Rendering count of remaining components to pick up
+        if self.maze.components_count == 0:
+            remain_text = self.remain0
+        elif self.maze.components_count == 1:
+            remain_text = self.remain1
+        elif self.maze.components_count == 2:
+            remain_text = self.remain2
+        else:
+            remain_text = self.remain3
+        self.screen.blit(remain_text, (0, self.screen.get_height()- remain_text.get_rect().height))
+        
+        #Rendering win/lose text on screen, according to state status (run, win, lose)
+        if self.state == "lose":
+            self.screen.blit(self.txtlose, (self.screen.get_width()/2 - self.txtlose.get_rect().width/2, 
+                self.screen.get_height()/2 - self.txtlose.get_rect().height/2))
+        elif self.state == "win":
+            self.screen.blit(self.txtwin, (self.screen.get_width()/2 - self.txtwin.get_rect().width/2, 
+                self.screen.get_height()/2 - self.txtwin.get_rect().height/2))
+        pg.display.update()
 
-		while True:
-			global state
-			draw(Maze, get_row_length)
-			#Events Loop
-			for event in pg.event.get():
-				if event.type == pg.KEYDOWN:
-					if state != "run":
-						exit()
-					else:
-						if event.key == pg.K_ESCAPE:
-							exit()
-						elif event.key in (pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN):
-							move(Maze, event.key, get_row_length)
+    def run(self):
+        """Main function for running this script in Pygame"""
+        while True:
+            self.draw()
+            #Events Loop
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if self.state != "run":
+                        exit()
+                    else:
+                        if event.key == pg.K_ESCAPE:
+                            exit()
+                        elif event.key in (pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN):
+                            self.maze.move_character(event.key, self.resolve)
