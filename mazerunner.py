@@ -119,7 +119,7 @@ state = "run"
 count = 3
 #Import the maze from a maze_1.txt file, and convert it into a usable list.
 maze = []
-with open("./maze_board/maze_1.txt") as f:
+with open("./levels/001.txt") as f:
     maze = [int(n) for n in f.read().replace(" ", "").replace("\n", "")]
 
 row_len = int(sqrt(len(maze))) #Determine the length of a row from maze.
