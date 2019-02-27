@@ -8,7 +8,7 @@ import pygame as pg
 
 
 class Game():
-    """docstring for Game"""
+    """This class defines the Game, and its components and machinery"""
     def __init__(self):
         pg.init()
         self.WHITE = (255, 255, 255)
@@ -40,6 +40,7 @@ class Game():
             self.state = "win" if self.maze.components_count == 0 else "lose"
 
     def draw(self):
+        """This function group all drawing graphics of the game"""
         self.screen.fill((0, 0, 0))  # Clear Screen (fill screen with black)
         self.maze.draw(self.TEXTURES, self.screen)
         remain_text = None
