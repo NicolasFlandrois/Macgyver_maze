@@ -8,6 +8,7 @@ from random import randrange as randrange
 
 
 class Maze():
+    """This class defines the components of the maze"""
 
     def __init__(self, path):
         self.tiles = []
@@ -34,13 +35,14 @@ class Maze():
                     break
 
     def update_components_count(self):
-        # Count remaining components
+        """Counting remaining components"""
         self.components_count = 0
         for tile in self.tiles:
             if tile in range(4, 7):
                 self.components_count += 1
 
     def has_guardian(self):
+        """Checking if presence of a guardian"""
         return self.tiles.count(3) > 0
 
     def draw(self, textures, screen):
