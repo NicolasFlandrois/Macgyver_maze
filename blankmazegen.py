@@ -5,9 +5,9 @@
 from math import sqrt as sqrt
 import os
 
-TARGET_DIR = './maze_board/'
+TARGET_DIR = './levels/'
 n = sum(1 for f in os.listdir(TARGET_DIR) if os.path.isfile(os.path.join(TARGET_DIR, f)))
-new_name = "{}maze_{}.txt".format(TARGET_DIR,n+1)
+new_name = "{}00{}.txt".format(TARGET_DIR,n+1)
 
 with open(new_name, 'w') as newmaze:
 		
