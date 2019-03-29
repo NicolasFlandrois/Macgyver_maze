@@ -9,10 +9,10 @@ import pygame as pg
 
 class Game():
     """This class defines the Game, and its components and machinery"""
-    def __init__(self):
+    def __init__(self, currentlevel):
         pg.init()
         self.WHITE = (255, 255, 255)
-        self.maze = Maze("./levels/001.txt")
+        self.maze = Maze(currentlevel)
         self.state = "run"
         self.font = pg.font.Font("./media/arial.ttf", 20)
         self.remain0 = self.font.render(
@@ -75,7 +75,9 @@ class Game():
             for event in pg.event.get():
                 if event.type == pg.KEYDOWN:
                     if self.state != "run":
-                        exit()
+                        #break # doesn't work
+                        #next() #iterator?- doesn't work
+                        #exit()# doesn't work
                     else:
                         if event.key == pg.K_ESCAPE:
                             exit()

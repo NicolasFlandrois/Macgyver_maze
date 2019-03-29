@@ -7,7 +7,7 @@ import os
 
 TARGET_DIR = './levels/'
 n = sum(1 for f in os.listdir(TARGET_DIR) if os.path.isfile(os.path.join(TARGET_DIR, f)))
-new_name = "{}00{}.txt".format(TARGET_DIR,n+1)
+new_name = "{}{}.txt".format(TARGET_DIR,n+1)
 
 with open(new_name, 'w') as newmaze:
 		
