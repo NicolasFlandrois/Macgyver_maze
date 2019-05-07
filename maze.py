@@ -1,4 +1,4 @@
-# !usr/bin/python3.6
+#!usr/bin/python3.6
 # UTF8
 # Date: Thu 07 Feb 2019 04:22:15 PM CET
 # Author: Nicolas Flandrois
